@@ -166,7 +166,9 @@ import Link from 'frozone/link'
 
 export default () => (
   <p>
-    You're home! <Link href='/about'>Learn about us</Link>
+    You're home! <Link href='/about'>
+      <a>Learn about us</a>
+    </Link>
   </p>
 )
 ```
@@ -280,13 +282,14 @@ You can just replace `frozone` with `next` in the following imports:
 - `frozone/head`
 - `frozone/link`
 
-### Things that can stay the same
+### Things that stay the same
 
 In general, your directory structure and more can remain the same. In particular:
 
 - Static files can stay in `static/` and `public/`
 - Your pages can be structured the same way in the same folder
 - `getInitialProps()` works exactly the same
+- `<Link>` and `<Head>` components
 
 ### Custom `<Document>`
 
@@ -407,7 +410,7 @@ Run `frozone static` (or `npm run export` if scripts are set up) to export stati
 <details>
   <summary>Why would you want this?</summary>
 
-  Frozone is a very new project, but since there isn't any JavaScript you aren't gonna get any errors. The built-in server is as simple as it gets and should be performant. If you're experiencing problems feel free to file an issue!
+  React is an amazing way of creating component-based websites and applications. It's so useful, in fact, that I tend to use it for almost everything - even sites that have no interactivity. Frozone is perfect for things like documentation sites that require no JavaScript. It keeps bundle size down, beause **there is no JavaScript bundle!** When you want to move on to something like Next.js, Frozone makes that easy.
 
 </details>
 
