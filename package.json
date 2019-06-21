@@ -1,0 +1,29 @@
+{
+  "name": "frozone",
+  "main": "index.js",
+  "version": "0.0.1",
+  "scripts": {
+    "toc": "doctoc ."
+  },
+  "bin": {
+    "frozone": "./index.js"
+  },
+  "dependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/preset-react": "7.0.0",
+    "arg": "^3.0.0",
+    "babel-plugin-react-require": "3.1.1",
+    "chalk": "^2.4.2",
+    "chokidar": "^2.1.6",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^7.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-jsx": "^3.2.1",
+    "ws": "^6.1.4"
+  },
+  "devDependencies": {
+    "doctoc": "^1.4.0"
+  }
+}
