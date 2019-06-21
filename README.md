@@ -69,20 +69,27 @@ We bundle Zeit's amazing library [styled-jsx](https://github.com/zeit/styled-jsx
 
 ```jsx
 export default () => (
-  <h1>Hello, Frozone!</h1>
+  <div>
+    <h1>Hello, Frozone!</h1>
 
-  <style jsx>{`
-    h1 {
-      font-family: sans-serif;
-      font-size: 3em;
-      text-align: center;
-      color: #23ffd3;
-    }
-  `}</style>
+    <style jsx>{`
+      h1 {
+        font-family: sans-serif;
+        font-size: 3em;
+        text-align: center;
+        color: #23ffd3;
+      }
+    `}</style>
+    <style jsx global>{`
+      body {
+        background: #000000;
+      }
+    `}</style>
+  </div>
 )
 ```
 
-Check out [styled-jsx's documentation](https://www.npmjs.com/package/styled-jsx) for more information and examples.
+Check out [styled-jsx's documentation](https://github.com/zeit/styled-jsx) for more information and examples.
 
 #### CSS-in-JS
 

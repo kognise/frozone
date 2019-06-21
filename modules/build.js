@@ -15,6 +15,8 @@ module.exports = (data) => {
     errored = true
   }
 
+  if (!data.pages) log('No pages were built', true, 'yellow')
+
   fs.removeSync(data.dist)
   if (!errored) log('Done building', false)
 }

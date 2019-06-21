@@ -1,18 +1,21 @@
-const chokidar = require('chokidar')
 const WebSocket = require('ws')
+const chokidar = require('chokidar')
 const build = require('./build')
+const { relative, normalize } = require('path')
 const { log } = require('../util')
 
 module.exports = (data) => {
   const wss = new WebSocket.Server({ port: data.lrPort })
+
   const buildAndReload = () => {
     build(data)
     for (let client of wss.clients) {
       client.send('reload')
     }
   }
+  const ignored = (child) => !relative(data.dist, child).startsWith('..')
 
-  chokidar.watch(data.src, { ignoreInitial: true })
+  chokidar.watch(`${process.cwd()}/${data.src}`, { ignoreInitial: true, ignored })
     .on('add', buildAndReload)
     .on('change', buildAndReload)
     .on('unlink', buildAndReload)
@@ -21,5 +24,5 @@ module.exports = (data) => {
     const ws = new WebSocket('ws://localhost:${data.lrPort}/')
     ws.addEventListener('message', () => window.location.reload())
   `
-  log('Watching for changes')
+  log('Watching for changes', true)
 }
