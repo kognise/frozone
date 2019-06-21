@@ -65,7 +65,7 @@ Just run `npm run dev` and go to `http://localhost:3000` to see your running sit
 
 #### Styled-jsx
 
-We bundle Zeit's amazing library [styled-jsx](https://github.com/zeit/styled-jsx) to provide support for scoped CSS. You may have noticed this in action in the default `index` page.
+We bundle Zeit's amazing library [styled-jsx](https://github.com/zeit/styled-jsx) to provide support for scoped CSS. You may have noticed this in action in the default `index` page:
 
 ```jsx
 export default () => (
