@@ -1,8 +1,8 @@
 # Frozone
 
-[![NPM version](https://img.shields.io/npm/v/frozone.svg?style=for-the-badge)](https://www.npmjs.com/package/frozone)
-
 **Frozone is a React framework that generates entirely static HTML with no JavaScript.**
+
+[![NPM version](https://img.shields.io/npm/v/frozone.svg?style=for-the-badge)](https://www.npmjs.com/package/frozone)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
