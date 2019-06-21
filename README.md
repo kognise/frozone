@@ -108,6 +108,8 @@ export default () => (
 
 You can serve static files from the root directory by putting them in a folder called `public`. For example, the file `public/robots.txt` could be access at `/robots.txt`.
 
+> Note that static files will override regular files. For example, if `public/foo.html` and `pages/foo.js` both exist, `index.html` will contain the contents from `public/foo.html`.
+
 ### Populating `<head>`
 
 Frozone includes a component for appending elements to the `<head>` element, similar to React Helmet.
