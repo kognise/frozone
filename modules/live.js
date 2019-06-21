@@ -1,7 +1,7 @@
 const WebSocket = require('ws')
 const chokidar = require('chokidar')
 const build = require('./build')
-const { relative, normalize } = require('path')
+const path = require('path')
 const { log } = require('../util')
 
 module.exports = (data) => {
@@ -13,7 +13,7 @@ module.exports = (data) => {
       client.send('reload')
     }
   }
-  const ignored = (child) => !relative(data.dist, child).startsWith('..')
+  const ignored = (child) => !path.relative(data.dist, child).startsWith('..')
 
   chokidar.watch(`${process.cwd()}/${data.src}`, { ignoreInitial: true, ignored })
     .on('add', buildAndReload)
