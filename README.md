@@ -185,6 +185,8 @@ export default () => (
 )
 ```
 
+> You should put an `<a>` tag inside the `<Link>` component instead of a direct text child.
+
 ### Custom `<Document>`
 
 You may have noticed that you do not have to specify the HTML document markup (such as `<html>` and `<body>` elements). You may want to override this - this is also useful for adding support for CSS-in-JS libraries such as [styled-components](https://www.styled-components.com/)
