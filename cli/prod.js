@@ -32,7 +32,7 @@ if (args['--help']) {
   `)
 } else {
   const src = args['--src'] || './'
-  const dist = args['--dist'] || 'dist/'
+  const dist = args['--dist'] || '.frozone/'
   const port = args['--port'] || 3000
 
   const build = () => {
