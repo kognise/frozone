@@ -47,7 +47,15 @@ module.exports.buildPages = (dist) => {
         __html: page
       }
     })
-    const Head = (props) => React.createElement(React.Fragment, null, styles, props.children)
+    const Head = (props) => React.createElement(
+      React.Fragment, null,
+      React.createElement('meta', {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0'
+      }),
+      React.createElement('meta', { charSet: 'UTF-8' }),
+      styles, props.children
+    )
 
     const static = ReactDOMServer.renderToStaticMarkup(React.createElement(Document, { Main, Head }))
     fs.outputFileSync(`${dist}/final/${file.replace(/\..+$/, '.html')}`, static)

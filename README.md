@@ -221,6 +221,8 @@ export default ({ Main, Head }) => (
 )
 ```
 
+> Reasonable default head tags such as `<meta charSet='UTF-8' />` and `<meta name='viewport' content='width=device-width, initial-scale=1.0' />` are provided by default.
+
 ### Custom configuration
 
 For custom advanced behavior of Next.js, you can create a `frozone.config.js` in the root of your project directory.
