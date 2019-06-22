@@ -145,8 +145,10 @@ You may want to load in external data to be passed as props to a page. For examp
 You can do this in the `getInitialProps` function:
 
 ```jsx
-const Page = ({ data }) => {
-  return <div>Frozone has <strong>{stars}</strong> stars!</div>
+import fetch from 'node-fetch'
+
+const Page = ({ stars }) => {
+  return <div>Frozone has <strong>{stars}</strong> stars on GitHub!</div>
 }
 
 Page.getInitialProps = async () => {

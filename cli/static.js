@@ -35,25 +35,27 @@ if (args['--help']) {
   const dist = args['--dist'] || '.frozone/'
   const out = args['--out'] || 'out/'
 
-  let errored = false
+  ;(async () => {
+    let errored = false
 
-  try {
-    log('Transforming JavaScript...')
-    transformJavaScript(src, dist)
+    try {
+      log('Transforming JavaScript...')
+      transformJavaScript(src, dist)
 
-    log('Building pages...')
-    buildPages(dist, true)
+      log('Building pages...')
+      await buildPages(dist, true)
 
-    log('Copying static files...')
-    copyStaticFiles(src, dist)
+      log('Copying static files...')
+      copyStaticFiles(src, dist)
 
-    log('Copying over static build...')
-    copyStaticBuild(dist, out)
-  } catch(error) {
-    log('Error building!', true, 'red')
-    log(error.message, true, 'red')
-    errored = true
-  }
-  
-  if (!errored) log(`Successfully completed static build`, true, 'green')
+      log('Copying over static build...')
+      copyStaticBuild(dist, out)
+    } catch(error) {
+      log('Error building!', true, 'red')
+      log(error.message, true, 'red')
+      errored = true
+    }
+    
+    if (!errored) log(`Successfully completed static build`, true, 'green')
+  })()
 }

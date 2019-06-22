@@ -35,25 +35,27 @@ if (args['--help']) {
   const dist = args['--dist'] || '.frozone/'
   const port = args['--port'] || 3000
 
-  let errored = false
+  ;(async () => {
+    let errored = false
+    
+    try {
+      log('Transforming JavaScript...')
+      transformJavaScript(src, dist)
   
-  try {
-    log('Transforming JavaScript...')
-    transformJavaScript(src, dist)
-
-    log('Building pages...')
-    buildPages(dist, false)
-
-    log('Copying static files...')
-    copyStaticFiles(src, dist)
-  } catch(error) {
-    log('Error building!', true, 'red')
-    log(error.message, true, 'red')
-    errored = true
-  }
+      log('Building pages...')
+      await buildPages(dist, false)
   
-  if (!errored) {
-    startServer(port, dist)
-    log(`Started server at http://localhost:${port}/`, true, 'green')
-  }
+      log('Copying static files...')
+      copyStaticFiles(src, dist)
+    } catch(error) {
+      log('Error building!', true, 'red')
+      log(error.message, true, 'red')
+      errored = true
+    }
+    
+    if (!errored) {
+      startServer(port, dist)
+      log(`Started server at http://localhost:${port}/`, true, 'green')
+    }
+  })()
 }

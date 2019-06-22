@@ -103,7 +103,7 @@ export default () => (
   </div>
 )
   `.trim())
-  fs.writeJSONSync(`${projectName}/package.json`, {
+  fs.writeFileSync(`${projectName}/package.json`, JSON.stringify({
     name: projectName,
     scripts: {
       dev: 'frozone dev',
@@ -113,7 +113,7 @@ export default () => (
     dependencies: {
       frozone: pjson.version
     }
-  })
+  }, null, 2))
 
   log('Installing packages...')
   const command = spawn.sync('yarn', [ '--version' ])

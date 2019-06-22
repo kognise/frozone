@@ -39,14 +39,14 @@ if (args['--help']) {
   const port = args['--port'] || 3000
   const lrPort = args['--lr-port'] || 3001
 
-  const build = () => {
+  const build = async () => {
     let errored = false
     try {
       log('Transforming JavaScript...')
       transformJavaScript(src, dist)
 
       log('Building pages...')
-      buildPages(dist, false)
+      await buildPages(dist, false)
 
       log('Copying static files...')
       copyStaticFiles(src, dist)
@@ -59,11 +59,12 @@ if (args['--help']) {
     if (!errored) log('Done building')
     return errored
   }
-  build()
-  
-  const script = startLiveReload(lrPort, src, dist, build)
-  log('Watching for changes', true)
 
-  startServer(port, dist, script)
-  log(`Started server at http://localhost:${port}/`, true, 'green')
+  build().then(() => {
+    const script = startLiveReload(lrPort, src, dist, build)
+    log('Watching for changes', true)
+  
+    startServer(port, dist, script)
+    log(`Started server at http://localhost:${port}/`, true, 'green')
+  })
 }

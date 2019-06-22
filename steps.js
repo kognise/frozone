@@ -11,7 +11,13 @@ const Context = require('./Context')
 const { esRequire, isJavaScript, injectScript, tree } = require('./util')
 
 const babelConfig = {
-  presets: [ '@babel/preset-env', '@babel/preset-react' ],
+  presets: [
+    [
+      '@babel/preset-env',
+      { targets: { node: 'current' } }
+    ],
+    '@babel/preset-react'
+  ],
   plugins: [ 'babel-plugin-react-require', 'styled-jsx/babel' ]
 }
 
@@ -26,7 +32,7 @@ module.exports.transformJavaScript = (src, dist) => {
   }
 }
 
-module.exports.buildPages = (dist, appendLinkExtension) => {
+module.exports.buildPages = async (dist, appendLinkExtension) => {
   if (!fs.existsSync(`${dist}/transformed/pages/_document.js`)) {
     const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), babelConfig)
     fs.outputFileSync(`${dist}/transformed/pages/_document.js`, code)
@@ -40,10 +46,15 @@ module.exports.buildPages = (dist, appendLinkExtension) => {
     if (file === '_document.js') continue
     const PageInner = esRequire(`${process.cwd()}/${dist}/transformed/pages/${file}`)
 
+    let pageProps = {}
+    if (PageInner.getInitialProps) {
+      pageProps = await PageInner.getInitialProps()
+    }
+
     const contextValue = { head: [], appendLinkExtension }
     const page = ReactDOMServer.renderToStaticMarkup(React.createElement(
       Context.Provider, { value: contextValue },
-      React.createElement(PageInner)
+      React.createElement(PageInner, pageProps)
     ))
     const styles = flush()
 
@@ -97,8 +108,8 @@ module.exports.copyStaticBuild = (dist, out) => {
 module.exports.startLiveReload = (lrPort, src, dist, build) => {
   const wss = new WebSocket.Server({ port: lrPort })
 
-  const buildAndReload = () => {
-    const errored = build()
+  const buildAndReload = async () => {
+    const errored = await build()
     if (errored) return
     for (let client of wss.clients) {
       client.send('reload')
