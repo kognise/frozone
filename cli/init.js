@@ -79,6 +79,7 @@ typings/
 .next/
 
 # Frozone build output
+.frozone/
 out/
   `.trim())
   fs.outputFileSync(`${projectName}/pages/index.js`, `

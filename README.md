@@ -7,6 +7,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [How to use](#how-to-use)
   - [Setup](#setup)
   - [CSS](#css)
@@ -28,7 +29,7 @@
     - [Now deploy](#now-deploy)
 - [Migrating to Next.js](#migrating-to-nextjs)
   - [Imports](#imports)
-  - [Things that can stay the same](#things-that-can-stay-the-same)
+  - [Things that stay the same](#things-that-stay-the-same)
   - [Custom `<Document>`](#custom-document-1)
   - [Custom configuration](#custom-configuration-1)
   - [Support](#support)
@@ -60,6 +61,8 @@ frozone init hello-world
 Every `.js` file inside the `pages/` directory becomes a route and is automatically rendered and converted to static HTML.
 
 Just run `npm run dev` and go to `http://localhost:3000` to see your running site. To use another port, you can run `npm run dev -p <port>`.
+
+> We recommend putting the `out/` and `.frozone/` folders in a `.gitignore` or `.npmignore`. That way your static exports and build files won't be tracked in version control which probably isn't desired.
 
 ### CSS
 
@@ -265,8 +268,6 @@ You can additionally export to static HTML files, this is useful if you want to 
 ```bash
 frozone static
 ```
-
-> We recommend putting the `out/`, folder in a `.gitignore` or `.npmignore`. That way your static exports won't be tracked in version constol which might not be desired.
 
 ### Deploying
 

@@ -9,7 +9,7 @@
 
   "main": "index.js",
   "scripts": {
-    "toc": "doctoc ."
+    "toc": "doctoc README.md"
   },
   "bin": {
     "frozone": "./index.js"
