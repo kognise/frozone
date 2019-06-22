@@ -35,6 +35,8 @@ if (args['--help']) {
   const dist = args['--dist'] || '.frozone/'
   const out = args['--out'] || 'out/'
 
+  let errored = false
+
   try {
     log('Transforming JavaScript...')
     transformJavaScript(src, dist)
@@ -53,5 +55,5 @@ if (args['--help']) {
     errored = true
   }
   
-  if (!errored) log(`Successfully completed static build!`, true, 'green')
+  if (!errored) log(`Successfully completed static build`, true, 'green')
 }

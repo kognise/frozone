@@ -7,6 +7,7 @@ const http = require('http')
 const babel = require('@babel/core')
 const chokidar = require('chokidar')
 const path = require('path')
+const HeadContext = require('./contexts/HeadContext')
 const { esRequire, isJavaScript, injectScript, tree } = require('./util')
 
 const babelConfig = {
@@ -15,6 +16,7 @@ const babelConfig = {
 }
 
 module.exports.transformJavaScript = (src, dist) => {
+  fs.emptyDirSync('.frozone')
   for (let file of tree(src)) {
     if (!isJavaScript(file)) continue
 
@@ -38,10 +40,14 @@ module.exports.buildPages = (dist) => {
     if (file === '_document.js') continue
     const PageInner = esRequire(`${process.cwd()}/${dist}/transformed/pages/${file}`)
 
-    const page = ReactDOMServer.renderToStaticMarkup(React.createElement(PageInner))
+    const headValue = { head: [] }
+    const page = ReactDOMServer.renderToStaticMarkup(React.createElement(
+      HeadContext.Provider, { value: headValue },
+      React.createElement(PageInner)
+    ))
     const styles = flush()
 
-    const Main = () => React.createElement('div', {
+    const Main = () =>  React.createElement('div', {
       id: 'root',
       dangerouslySetInnerHTML: {
         __html: page
@@ -54,10 +60,13 @@ module.exports.buildPages = (dist) => {
         content: 'width=device-width, initial-scale=1.0'
       }),
       React.createElement('meta', { charSet: 'UTF-8' }),
-      styles, props.children
+      styles, props.children, headValue.head
     )
 
-    const static = ReactDOMServer.renderToStaticMarkup(React.createElement(Document, { Main, Head }))
+    const static = ReactDOMServer.renderToStaticMarkup(React.createElement(
+      HeadContext.Provider, { value: headValue },
+      React.createElement(Document, { Main, Head })
+    ))
     fs.outputFileSync(`${dist}/final/${file.replace(/\..+$/, '.html')}`, static)
   }
 }

@@ -7,7 +7,7 @@
   "repository": "kognise/frozone",
   "bugs": "https://github.com/kognise/frozone/issues",
 
-  "main": "index.js",
+  "main": "public/",
   "scripts": {
     "toc": "doctoc README.md"
   },

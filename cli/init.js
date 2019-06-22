@@ -83,7 +83,7 @@ typings/
 out/
   `.trim())
   fs.outputFileSync(`${projectName}/pages/index.js`, `
-export default (
+export default () => (
   <div>
     <h1>Hello, Frozone!</h1>
 
