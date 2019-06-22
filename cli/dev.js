@@ -31,7 +31,7 @@ if (args['--help']) {
       --port, -p       The port for the server to listen on
       --lr-port        The port for the live reload server to listen on
       --src            The directory with the source code
-      --dist           The directory that will be temporarily created during build
+      --dist           A directory that will be created for build files
   `)
 } else {
   const src = args['--src'] || './'

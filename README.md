@@ -391,7 +391,9 @@ Just press `Ctrl-C` to terminate it. Frozone will attempt to spit out useful err
 - `--port`, `-p`: sets the port for the server to listen on
 - `--lr-port`: sets the port for the live reload socket to listen on
 - `--src`: the directory with the site's source code
-- `--dist`: a temporary directory used during a build step
+- `--dist`: a directory that will be created for build files
+
+> In most circumstances `--dist` shouldn't have to be changed, its default value is `.frozone/`.
 
 ### Production server
 
@@ -402,7 +404,7 @@ Running `frozone start` (or `npm run start` if scripts are set up) will start a 
 - `--help`, `-h`: displays some help informaton
 - `--port`, `-p`: sets the port for the server to listen on
 - `--src`: the directory with the site's source code
-- `--dist`: a temporary directory used during a build step
+- `--dist`: a directory that will be created for build files
 
 ### Static export
 
@@ -413,7 +415,7 @@ Run `frozone static` (or `npm run export` if scripts are set up) to export stati
 - `--help`, `-h`: displays some help informaton
 - `--out`, `-o`: the output directory
 - `--src`: the directory with the site's source code
-- `--dist`: a temporary directory used during a build step
+- `--dist`: a directory that will be created for build files
 
 ## FAQ
 
