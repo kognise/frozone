@@ -1,6 +1,10 @@
 const arg = require('arg')
 const chalk = require('chalk')
-const chain = require('../chain')
+const { log } = require('../util')
+const {
+  transformJavaScript, buildPages, copyStaticFiles,
+  startLiveReload, startServer
+} = require('../steps')
 
 const args = arg({
   '--help': Boolean,
@@ -30,14 +34,36 @@ if (args['--help']) {
       --dist           The directory that will be temporarily created during build
   `)
 } else {
-  chain([
-    require('../modules/build'),
-    require('../modules/live'),
-    require('../modules/server')
-  ], {
-    src: args['--src'] || './',
-    dist: args['--dist'] || 'dist/',
-    port: args['--port'] || 3000,
-    lrPort: args['--lr-port'] || 3001
-  })
+  const src = args['--src'] || './'
+  const dist = args['--dist'] || 'dist/'
+  const port = args['--port'] || 3000
+  const lrPort = args['--lr-port'] || 3001
+
+  const build = () => {
+    let errored = false
+    try {
+      log('Transforming JavaScript...')
+      transformJavaScript(src, dist)
+
+      log('Building pages...')
+      buildPages(dist)
+
+      log('Copying static files...')
+      copyStaticFiles(src, dist)
+    } catch(error) {
+      log('Error building!', true, 'red')
+      log(error.message, true, 'red')
+      errored = true
+    }
+
+    if (!errored) log('Done building')
+    return errored
+  }
+  build()
+  
+  const script = startLiveReload(lrPort, src, dist, build)
+  log('Watching for changes', true)
+
+  startServer(port, dist, script)
+  log(`Started server at http://localhost:${port}/`, true, 'green')
 }
