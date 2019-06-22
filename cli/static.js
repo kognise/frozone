@@ -42,7 +42,7 @@ if (args['--help']) {
     transformJavaScript(src, dist)
 
     log('Building pages...')
-    buildPages(dist)
+    buildPages(dist, true)
 
     log('Copying static files...')
     copyStaticFiles(src, dist)

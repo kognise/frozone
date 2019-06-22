@@ -1,7 +1,7 @@
 const { Children, useContext } = require('react')
-const HeadContext = require('../contexts/HeadContext')
+const Context = require('../Context')
 
 module.exports = ({ children }) => {
-  useContext(HeadContext).head = Children.toArray(children)
+  useContext(Context).head = Children.toArray(children)
   return null
 }

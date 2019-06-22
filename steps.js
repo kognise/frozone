@@ -7,7 +7,7 @@ const http = require('http')
 const babel = require('@babel/core')
 const chokidar = require('chokidar')
 const path = require('path')
-const HeadContext = require('./contexts/HeadContext')
+const Context = require('./contexts/Context')
 const { esRequire, isJavaScript, injectScript, tree } = require('./util')
 
 const babelConfig = {
@@ -26,7 +26,7 @@ module.exports.transformJavaScript = (src, dist) => {
   }
 }
 
-module.exports.buildPages = (dist) => {
+module.exports.buildPages = (dist, appendLinkExtension) => {
   if (!fs.existsSync(`${dist}/transformed/pages/_document.js`)) {
     const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), babelConfig)
     fs.outputFileSync(`${dist}/transformed/pages/_document.js`, code)
@@ -40,9 +40,9 @@ module.exports.buildPages = (dist) => {
     if (file === '_document.js') continue
     const PageInner = esRequire(`${process.cwd()}/${dist}/transformed/pages/${file}`)
 
-    const headValue = { head: [] }
+    const contextValue = { head: [], appendLinkExtension }
     const page = ReactDOMServer.renderToStaticMarkup(React.createElement(
-      HeadContext.Provider, { value: headValue },
+      Context.Provider, { value: contextValue },
       React.createElement(PageInner)
     ))
     const styles = flush()
@@ -60,11 +60,11 @@ module.exports.buildPages = (dist) => {
         content: 'width=device-width, initial-scale=1.0'
       }),
       React.createElement('meta', { charSet: 'UTF-8' }),
-      styles, props.children, headValue.head
+      styles, props.children, contextValue.head
     )
 
     const static = ReactDOMServer.renderToStaticMarkup(React.createElement(
-      HeadContext.Provider, { value: headValue },
+      Context.Provider, { value: contextValue },
       React.createElement(Document, { Main, Head })
     ))
     fs.outputFileSync(`${dist}/final/${file.replace(/\..+$/, '.html')}`, static)
