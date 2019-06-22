@@ -7,7 +7,7 @@ const http = require('http')
 const babel = require('@babel/core')
 const chokidar = require('chokidar')
 const path = require('path')
-const Context = require('./contexts/Context')
+const Context = require('./Context')
 const { esRequire, isJavaScript, injectScript, tree } = require('./util')
 
 const babelConfig = {
