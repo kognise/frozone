@@ -33,7 +33,7 @@ npm install frozone -g
 
 ### Creating a project
 
-First, initialize a project with Frozone:
+Then initialize a project with Frozone:
 
 ```bash
 frozone init hello-frozone

@@ -34,7 +34,7 @@ Now is a serverless deployment platform created by Zeit. There are two ways to i
 
 ### Installing Frozone
 
-Next, you'll need to install Frozone itself. This is pretty easy, just run the following command:
+First, you'll need to install Frozone itself. This is pretty easy, just run the following command:
 
 ```bash
 npm install frozone -g
@@ -42,7 +42,7 @@ npm install frozone -g
 
 ### Creating a project
 
-First, initialize a project with Frozone:
+Now initialize a project with Frozone:
 
 ```bash
 frozone init hello-frozone
