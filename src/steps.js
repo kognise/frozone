@@ -31,7 +31,7 @@ module.exports.transformJavaScript = (config, src, dist) => {
 
 module.exports.buildPages = async (config, dist, isStatic) => {
   if (!fs.existsSync(`${dist}/transformed/pages/_document.js`)) {
-    const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), {
+    const { code } = babel.transformFileSync(`${__dirname}/../src/default/_document.js`, {
       presets: config.babelPresets,
       plugins: config.babelPlugins
     })
@@ -60,6 +60,7 @@ module.exports.buildPages = async (config, dist, isStatic) => {
       React.createElement(PageInner, pageProps)
     ))
     const styles = flush()
+    console.log('STYLS', styles)
 
     const Main = () =>  React.createElement('div', {
       id: 'root',

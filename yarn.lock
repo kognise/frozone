@@ -2535,6 +2535,11 @@ trough@^1.0.0:
   resolved "https://registry.yarnpkg.com/trough/-/trough-1.0.4.tgz#3b52b1f13924f460c3fbfd0df69b587dbcbc762e"
   integrity sha512-tdzBRDGWcI1OpPVmChbdSKhvSVurznZ8X36AYURAcl+0o2ldlCY2XPzyXNNxwJwwyIU+rIglTCG4kxtNKBQH7Q==
 
+typescript@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
+  integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
+
 underscore@~1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"

@@ -10,7 +10,7 @@ const args = arg({
 
   '-h': '--help',
   '-v': '--version'
-}, { permissive: true })
+}, { permissive: false })
 
 switch (args._[0]) {
   case 'new':
