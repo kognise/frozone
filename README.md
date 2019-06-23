@@ -239,7 +239,7 @@ Configuration example:
 
 ```js
 module.exports = {
-  babelPresets: [ '@babel/preset-typescript' ]
+  babelPlugins: [ 'babel-plugin-holes' ]
 }
 ```
 
