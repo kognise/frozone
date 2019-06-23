@@ -52,5 +52,4 @@ typings/
 out/
 
 # Secret sauce
-src/
-TODO.md
+demo/
