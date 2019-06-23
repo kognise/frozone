@@ -24,7 +24,7 @@
 
 ## Getting started
 
-You'll need a [GitHub account](https://github.com/) and a [copy of Node.js](https://nodejs.org/) installed on your computer.
+You'll need a [GitHub account](https://github.com/) and a [copy of Node.js](https://nodejs.org/) installed on your computer. You'll also need [Git](https://git-scm.com/).
 
 ### Installing Now
 
