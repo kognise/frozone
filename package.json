@@ -1,6 +1,6 @@
 {
   "name": "frozone",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A React framework that generates entirely static HTML with no JavaScript",
   "license": "MIT",
   "repository": "kognise/frozone",
