@@ -5,12 +5,12 @@
   "license": "MIT",
   "repository": "kognise/frozone",
   "bugs": "https://github.com/kognise/frozone/issues",
-  "main": "public/",
+  "main": "src/index.js",
   "scripts": {
     "toc": "doctoc README.md"
   },
   "bin": {
-    "frozone": "./index.js"
+    "frozone": "./src/index.js"
   },
   "dependencies": {
     "@babel/core": "7.4.5",

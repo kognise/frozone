@@ -2,7 +2,7 @@
 
 const arg = require('arg')
 const chalk = require('chalk')
-const pjson = require('./package.json')
+const pjson = require('../package.json')
 
 const args = arg({
   '--help': Boolean,
