@@ -3,6 +3,7 @@
 **Frozone is a React framework that generates entirely static HTML with no JavaScript.**
 
 [![NPM version](https://img.shields.io/npm/v/frozone.svg?style=for-the-badge)](https://www.npmjs.com/package/frozone)
+[![GitHub](https://img.shields.io/github/license/kognise/frozone.svg?style=for-the-badge)](https://github.com/kognise/frozone/blob/master/LICENSE.md)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
