@@ -13,6 +13,8 @@ const { esRequire, isCode, injectScript, tree } = require('./util')
 module.exports.transformJavaScript = (config, src, dist) => {
   fs.emptyDirSync('.frozone')
   for (let file of tree(src)) {
+    if (!path.relative('node_modules/', file).startsWith('..')) continue
+
     if (!isCode(config, file)) {
       const content = fs.readFileSync(`${src}/${file}`)
       fs.outputFileSync(`${dist}/transformed/${file}`, content)
