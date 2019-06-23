@@ -311,7 +311,7 @@ You can deploy Frozone anywhere from [Netlify](https://netlify.com/) to [Now](ht
 
 - [Netlify](deploying/NETLIFY.md)
 - [Now](deploying/NOW.md)
-- GitHub Pages (coming soon)
+- [GitHub Pages](deploying/GITHUB.md)
 
 ## Migrating to Next.js
 
