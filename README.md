@@ -61,7 +61,7 @@ frozone init hello-world
 
 Every `.js` file inside the `pages/` directory becomes a route and is automatically rendered and converted to static HTML.
 
-Just run `npm run dev` and go to `http://localhost:3000` to see your running site. To use another port, you can run `npm run dev -p <port>`.
+Just run `npm run dev` and go to `http://localhost:3000` to see your running site. To use another port, you can run `npm run dev -- -p <port>`.
 
 > We recommend putting the `out/` and `.frozone/` folders in a `.gitignore` or `.npmignore`. That way your static exports and build files won't be tracked in version control which probably isn't desired.
 
