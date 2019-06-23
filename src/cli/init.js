@@ -2,7 +2,7 @@ const arg = require('arg')
 const chalk = require('chalk')
 const fs = require('fs-extra')
 const spawn = require('cross-spawn')
-const pjson = require('../package.json')
+const pjson = require(`${__dirname}/../../package.json`)
 const { log } = require('../util')
 
 const args = arg({
