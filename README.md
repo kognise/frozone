@@ -459,14 +459,18 @@ Run `frozone static` (or `npm run export` if scripts are set up) to export stati
 <details>
   <summary>Why would you want this?</summary>
 
-  React is an amazing way of creating component-based websites and applications. It's so useful, in fact, that I tend to use it for almost everything - even sites that have no interactivity. Frozone is perfect for things like documentation sites that require no JavaScript. It keeps bundle size down, beause **there is no JavaScript bundle!** When you want to move on to something like Next.js, Frozone makes that easy.
+  React is an amazing way of creating interactive component-based web apps. But it's component system and syntax is extremely useful on its own!
+
+  Frozone lets your create sites in React that compile to static HTML **with no JavaScript bundle**. That means all the benefits and maintainability of React without giant file sizes.
+
+  Not only that - if you want to add interactivity later on, Frozone makes it [super easy](#migrating-to-nextjs) to migrate to Next.js.
 
 </details>
 
 <details>
   <summary>Is Frozone production ready?</summary>
 
-  Frozone is a very new project, but since there isn't any JavaScript you aren't gonna get any errors. The built-in server is as simple as it gets and should be performant. If you're experiencing problems feel free to file an issue!
+  Frozone is a very new project, but since there isn't any JavaScript you aren't going to get any unexpected errors in production. The built-in server is as simple as it gets and should be performant. If you're experiencing problems feel free to file an issue!
 
 </details>
 
