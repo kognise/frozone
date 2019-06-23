@@ -39,7 +39,7 @@ Then initialize a project with Frozone:
 frozone init hello-frozone
 ```
 
-Create a repository on GitHub with the same name, and link it to your project:
+Create a repository on GitHub with the same name and push your code:
 
 ```bash
 cd hello-frozone
