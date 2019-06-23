@@ -1,4 +1,4 @@
-# Deploying Frozone with Netlify
+# Deploying Frozone with Now
 
 **How to create and deploy a Frozone project on [Now](https://now.sh/).**
 
