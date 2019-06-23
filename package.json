@@ -7,7 +7,7 @@
   "bugs": "https://github.com/kognise/frozone/issues",
   "main": "src/index.js",
   "scripts": {
-    "toc": "doctoc README.md"
+    "toc": "doctoc README.md deploying/"
   },
   "bin": {
     "frozone": "./src/index.js"

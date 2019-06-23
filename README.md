@@ -28,8 +28,6 @@
   - [Frozone's server](#frozones-server)
   - [Static HTML](#static-html)
   - [Deploying](#deploying)
-    - [Netlify deploy](#netlify-deploy)
-    - [Now deploy](#now-deploy)
 - [Migrating to Next.js](#migrating-to-nextjs)
   - [Imports](#imports)
   - [Things that stay the same](#things-that-stay-the-same)
@@ -309,15 +307,11 @@ frozone static
 
 ### Deploying
 
-You can deploy Frozone anywhere from [Netlify](https://netlify.com/) to [Now](https://now.sh/). Below there are guides to deploy Frozone on these two services.
+You can deploy Frozone anywhere from [Netlify](https://netlify.com/) to [Now](https://now.sh/). Here's a list of guides:
 
-#### Netlify deploy
-
-TODO!
-
-#### Now deploy
-
-TODO!
+- [Netlify](deploying/NETLIFY.md)
+- [Now](deploying/NOW.md)
+- GitHub Pages (coming soon)
 
 ## Migrating to Next.js
 
