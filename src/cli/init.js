@@ -7,7 +7,8 @@ const { log } = require('../util')
 
 const args = arg({
   '--help': Boolean,
-  '-h': '--help',
+  '--include-out': Boolean,
+  '-h': '--help'
 })
 
 const projectName = args._[1]
@@ -21,6 +22,7 @@ if (args['--help']) {
 
     ${chalk.bold('Options')}
       --help, -h       Display this message
+      --include-out    Include the static build out directory in Git
   `)
 } else if (!projectName) {
   log('You must specify a name for your new project!', true, 'red')
@@ -79,8 +81,7 @@ typings/
 .next/
 
 # Frozone build output
-.frozone/
-out/
+.frozone/${args['--include-out'] ? '' : '\nout/'}
   `.trim())
   fs.outputFileSync(`${projectName}/pages/index.js`, `
 export default () => (

@@ -417,6 +417,11 @@ This will generate the following simple file structure:
 
 `index.js` will be populated with a very simple page demonstrating a heading and some minimal styles.
 
+**Options**
+
+- `--help`, `-h`: displays some help informaton
+- `--include-out`: include the static build out directory in Git (useful for GitHub Pages deployments)
+
 ### Developing
 
 Running `frozone` or `frozone dev` (or `npm run dev` if scripts are set up) will start a development server in the current directory with live reloading.
