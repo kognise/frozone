@@ -1,6 +1,6 @@
 const arg = require('arg')
 const chalk = require('chalk')
-const { log } = require('../util')
+const { getConfig, log } = require('../util')
 const {
   transformJavaScript, buildPages, copyStaticFiles,
   copyStaticBuild
@@ -35,21 +35,23 @@ if (args['--help']) {
   const dist = args['--dist'] || '.frozone/'
   const out = args['--out'] || 'out/'
 
+  const config = getConfig(src)
+
   ;(async () => {
     let errored = false
 
     try {
       log('Transforming JavaScript...')
-      transformJavaScript(src, dist)
+      transformJavaScript(config, src, dist)
 
       log('Building pages...')
-      await buildPages(dist, true)
+      await buildPages(config, dist, true)
 
       log('Copying static files...')
-      copyStaticFiles(src, dist)
+      copyStaticFiles(config, src, dist)
 
       log('Copying over static build...')
-      copyStaticBuild(dist, out)
+      copyStaticBuild(config, dist, out)
     } catch(error) {
       log('Error building!', true, 'red')
       log(error.message, true, 'red')

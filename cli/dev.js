@@ -1,6 +1,6 @@
 const arg = require('arg')
 const chalk = require('chalk')
-const { log } = require('../util')
+const { getConfig, log } = require('../util')
 const {
   transformJavaScript, buildPages, copyStaticFiles,
   startLiveReload, startServer
@@ -39,17 +39,19 @@ if (args['--help']) {
   const port = args['--port'] || 3000
   const lrPort = args['--lr-port'] || 3001
 
+  const config = getConfig(src)
+
   const build = async () => {
     let errored = false
     try {
       log('Transforming JavaScript...')
-      transformJavaScript(src, dist)
+      transformJavaScript(config, src, dist)
 
       log('Building pages...')
-      await buildPages(dist, false)
+      await buildPages(config, dist, false)
 
       log('Copying static files...')
-      copyStaticFiles(src, dist)
+      copyStaticFiles(config, src, dist)
     } catch(error) {
       log('Error building!', true, 'red')
       log(error.message, true, 'red')
@@ -61,10 +63,10 @@ if (args['--help']) {
   }
 
   build().then(() => {
-    const script = startLiveReload(lrPort, src, dist, build)
+    const script = startLiveReload(config, lrPort, src, dist, build)
     log('Watching for changes', true)
   
-    startServer(port, dist, script)
+    startServer(config, port, dist, script)
     log(`Started server at http://localhost:${port}/`, true, 'green')
   })
 }

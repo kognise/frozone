@@ -20,6 +20,8 @@
     - [Simple linking](#simple-linking)
   - [Custom `<Document>`](#custom-document)
   - [Custom configuration](#custom-configuration)
+    - [Configurating code extensions](#configurating-code-extensions)
+    - [Static build `<Link>` extensions](#static-build-link-extensions)
     - [Plugin support](#plugin-support)
 - [Production deployment](#production-deployment)
   - [Frozone's server](#frozones-server)
@@ -171,7 +173,7 @@ When exporting to static HTML Frozone will write to filenames matching the origi
 
 #### Simple linking
 
-To link between pages we provide a `<Link>` component. This will decide whether or not to append the `.html` extension based on whether or not your site is being served by Frozone or a static server. You can override this in a [custom configuration file](#custom-configuration).
+To link between pages we provide a `<Link>` component. This will decide whether or not to append the `.html` extension based on whether or not your site is being served by Frozone or a static server. You can override this in a [custom configuration file](#static-build-link-extensions).
 
 Here's a basic example:
 
@@ -229,25 +231,54 @@ export default ({ Main, Head }) => (
 
 ### Custom configuration
 
-For custom advanced behavior of Next.js, you can create a `frozone.config.js` in the root of your project directory.
+For custom advanced behavior of Next.js, you can create a `frozone.config.js` in the root of your project directory. You must restart Frozone after making changes to the config file.
 
 > Note that `frozone.config.js` is a JavaScript module that should export an object, and isn't a JSON file.
 
 Configuration example:
 
 ```js
-export default {
+module.exports = {
   babelPresets: [ '@babel/preset-typescript' ]
 }
 ```
 
-Here's a fully fledged out configuration file:
+Here's a fully fledged out configuration file, all fields are optional:
 
 ```js
-export default {
+module.exports = {
   babelPresets: [], // Additional Babel presets
   babelPlugins: [], // Additional Babel plugins
-  htmlExtension: false // Whether linked pages end with .html
+  codeExtensions: [ 'js', 'jsx' ], // Extensions that Frozone considers as code files
+  staticUseLinkSuffix: true // Whether linked pages in static exports end with .html
+}
+```
+
+> Fields such as `babelPresets` and `babelPlugins` will be added on to the default set. Fields like `codeExtensions` and `useLinkSuffix` will replace the default value.
+
+I'll be adding more options in the future. Create an issue if you want something specific.
+
+#### Configurating code extensions
+
+If you want to use things like TypeScript you may want to modify this field. Frozone will treat files with these extensions as code and build them with Babel. Files with these extensions in the `pages/` directory will be built as pages.
+
+Here are values you might want for TypeScript:
+
+```js
+module.exports = {
+  codeExtensions: [ 'ts', 'tsx' ]
+}
+```
+
+#### Static build `<Link>` extensions
+
+By default, links to pages will end with `.html` in static exports. Sometimes you might want to remove that, for example if you set your server up to serve `/foo.html` when `/foo` is requested.
+
+You can just set this configuration value:
+
+```js
+module.exports = {
+  staticUseLinkSuffix: false
 }
 ```
 

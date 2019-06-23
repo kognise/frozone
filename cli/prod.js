@@ -1,6 +1,6 @@
 const arg = require('arg')
 const chalk = require('chalk')
-const { log } = require('../util')
+const { getConfig, log } = require('../util')
 const {
   transformJavaScript, buildPages, copyStaticFiles,
   startServer
@@ -35,18 +35,20 @@ if (args['--help']) {
   const dist = args['--dist'] || '.frozone/'
   const port = args['--port'] || 3000
 
+  const config = getConfig(src)
+
   ;(async () => {
     let errored = false
     
     try {
       log('Transforming JavaScript...')
-      transformJavaScript(src, dist)
+      transformJavaScript(config, src, dist)
   
       log('Building pages...')
-      await buildPages(dist, false)
+      await buildPages(config, dist, false)
   
       log('Copying static files...')
-      copyStaticFiles(src, dist)
+      copyStaticFiles(config, src, dist)
     } catch(error) {
       log('Error building!', true, 'red')
       log(error.message, true, 'red')
@@ -54,7 +56,7 @@ if (args['--help']) {
     }
     
     if (!errored) {
-      startServer(port, dist)
+      startServer(config, port, dist)
       log(`Started server at http://localhost:${port}/`, true, 'green')
     }
   })()

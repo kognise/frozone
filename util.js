@@ -22,7 +22,12 @@ module.exports.tree = (directory, files = [], root = directory.length) => {
   return files
 }
 
-module.exports.isJavaScript = (path) => /^.+\.(js|jsx|ts|tsx)$/.test(path)
+module.exports.isCode = (config, path) => {
+  for (let extension of config.codeExtensions) {
+    if (path.endsWith(`.${extension}`)) return true
+  }
+  return false
+}
 
 module.exports.injectScript = (markup, script) => {
   if (endOfBodyRegex.test(markup)) {
@@ -38,4 +43,28 @@ module.exports.log = (message, noReplace, color = 'blue') => {
 
   process.stdout.write(chalk[color](`> ${message}`))
   if (noReplace) process.stdout.write('\n')
+}
+
+module.exports.getConfig = (src) => {
+  const defaultBabelPresets = [
+    [
+      '@babel/preset-env',
+      { targets: { node: 'current' } }
+    ],
+    '@babel/preset-react'
+  ]
+  const defaultBabelPlugins = [ 'babel-plugin-react-require', 'styled-jsx/babel' ]
+  const defaultCodeExtensions = [ 'js', 'jsx' ]
+
+  let config = {}
+  if (fs.existsSync(`${src}/frozone.config.js`)) {
+    config = require(`${process.cwd()}/${src}/frozone.config.js`)
+  }
+  
+  return {
+    babelPresets: config.babelPresets ? defaultBabelPresets.concat(config.babelPresets) : defaultBabelPresets,
+    babelPlugins: config.babelPlugins ? defaultBabelPlugins.concat(config.babelPlugins) : defaultBabelPlugins,
+    codeExtensions: config.codeExtensions || defaultCodeExtensions,
+    staticUseLinkSuffix: config.staticUseLinkSuffix === undefined ? true : config.staticUseLinkSuffix
+  }
 }

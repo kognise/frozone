@@ -8,33 +8,31 @@ const babel = require('@babel/core')
 const chokidar = require('chokidar')
 const path = require('path')
 const Context = require('./Context')
-const { esRequire, isJavaScript, injectScript, tree } = require('./util')
+const { esRequire, isCode, injectScript, tree } = require('./util')
 
-const babelConfig = {
-  presets: [
-    [
-      '@babel/preset-env',
-      { targets: { node: 'current' } }
-    ],
-    '@babel/preset-react'
-  ],
-  plugins: [ 'babel-plugin-react-require', 'styled-jsx/babel' ]
-}
-
-module.exports.transformJavaScript = (src, dist) => {
+module.exports.transformJavaScript = (config, src, dist) => {
   fs.emptyDirSync('.frozone')
   for (let file of tree(src)) {
-    if (!isJavaScript(file)) continue
-
-    const { code } = babel.transformFileSync(`${src}/${file}`, babelConfig)
-    fs.outputFileSync(`${dist}/transformed/${file}`, code)
-    delete require.cache[require.resolve(`${process.cwd()}/${dist}/transformed/${file}`)]
+    if (!isCode(config, file)) {
+      const content = fs.readFileSync(`${src}/${file}`)
+      fs.outputFileSync(`${dist}/transformed/${file}`, content)
+    } else {
+      const { code } = babel.transformFileSync(`${src}/${file}`, {
+        presets: config.babelPresets,
+        plugins: config.babelPlugins
+      })
+      fs.outputFileSync(`${dist}/transformed/${file}`, code)
+      delete require.cache[require.resolve(`${process.cwd()}/${dist}/transformed/${file}`)]
+    }
   }
 }
 
-module.exports.buildPages = async (dist, appendLinkExtension) => {
+module.exports.buildPages = async (config, dist, isStatic) => {
   if (!fs.existsSync(`${dist}/transformed/pages/_document.js`)) {
-    const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), babelConfig)
+    const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), {
+      presets: config.babelPresets,
+      plugins: config.babelPlugins
+    })
     fs.outputFileSync(`${dist}/transformed/pages/_document.js`, code)
   }
 
@@ -43,7 +41,7 @@ module.exports.buildPages = async (dist, appendLinkExtension) => {
   const Document = esRequire(requirePath)
 
   for (let file of tree(`${dist}/transformed/pages/`)) {
-    if (file === '_document.js') continue
+    if (file === '_document.js' || !isCode(config, file)) continue
     const PageInner = esRequire(`${process.cwd()}/${dist}/transformed/pages/${file}`)
 
     let pageProps = {}
@@ -51,7 +49,10 @@ module.exports.buildPages = async (dist, appendLinkExtension) => {
       pageProps = await PageInner.getInitialProps()
     }
 
-    const contextValue = { head: [], appendLinkExtension }
+    const contextValue = {
+      head: [],
+      useLinkSuffix: isStatic ? config.staticUseLinkSuffix : false
+    }
     const page = ReactDOMServer.renderToStaticMarkup(React.createElement(
       Context.Provider, { value: contextValue },
       React.createElement(PageInner, pageProps)
@@ -82,7 +83,7 @@ module.exports.buildPages = async (dist, appendLinkExtension) => {
   }
 }
 
-module.exports.copyStaticFiles = (src, dist) => {
+module.exports.copyStaticFiles = (config, src, dist) => {
   if (fs.existsSync(`${src}/static/`)) {
     for (let file of tree(`${src}/static/`)) {
       const content = fs.readFileSync(`${src}/static/${file}`)
@@ -98,14 +99,14 @@ module.exports.copyStaticFiles = (src, dist) => {
   }
 }
 
-module.exports.copyStaticBuild = (dist, out) => {
+module.exports.copyStaticBuild = (config, dist, out) => {
   for (let file of tree(`${dist}/final/`)) {
     const content = fs.readFileSync(`${dist}/final/${file}`)
     fs.outputFileSync(`${out}/${file}`, content)
   }
 }
 
-module.exports.startLiveReload = (lrPort, src, dist, build) => {
+module.exports.startLiveReload = (config, lrPort, src, dist, build) => {
   const wss = new WebSocket.Server({ port: lrPort })
 
   const buildAndReload = async () => {
@@ -128,7 +129,7 @@ module.exports.startLiveReload = (lrPort, src, dist, build) => {
   `
 }
 
-module.exports.startServer = (port, dist, script) => {
+module.exports.startServer = (config, port, dist, script) => {
   http.createServer((req, res) => {
     const possibilities = [
       `${dist}/final/${req.url}`,
