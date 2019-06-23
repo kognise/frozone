@@ -86,14 +86,21 @@ typings/
   fs.outputFileSync(`${projectName}/pages/index.js`, `
 export default () => (
   <div>
-    <h1>Hello, Frozone!</h1>
+    <h1>
+      Hello, <span className='frozone'>Frozone</span>!
+    </h1>
 
     <style jsx>{\`
       h1 {
-        font-family: sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
         font-size: 3em;
         text-align: center;
-        color: #23ffd3;
+        color: #ffffff;
+      }
+      .frozone {
+        font-weight: 600;
+        color: #22ffd3;
       }
     \`}</style>
     <style jsx global>{\`
