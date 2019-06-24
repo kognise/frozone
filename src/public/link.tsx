@@ -3,7 +3,6 @@ import Context from '../Context'
 import { log } from '../util'
 
 interface LinkProps {
-  children?: ReactNode
   href: string
 }
 
