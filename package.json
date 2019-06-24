@@ -19,6 +19,9 @@
     "index.js",
     "head.js",
     "link.js",
+    "index.d.ts",
+    "head.d.ts",
+    "link.d.ts",
     "dist/"
   ],
   "dependencies": {
