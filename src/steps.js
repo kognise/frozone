@@ -60,7 +60,6 @@ module.exports.buildPages = async (config, dist, isStatic) => {
       React.createElement(PageInner, pageProps)
     ))
     const styles = flush()
-    console.log('STYLS', styles)
 
     const Main = () =>  React.createElement('div', {
       id: 'root',
