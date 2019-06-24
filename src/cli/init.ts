@@ -2,8 +2,8 @@ import arg from 'arg'
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import spawn from 'cross-spawn'
-import pjson from `${__dirname}/../../package.json`
 import { log } from '../util'
+const pjson = require(`${__dirname}/../../package.json`)
 
 const args = arg({
   '--help': Boolean,

@@ -4,12 +4,21 @@ import rl from 'readline'
 
 const endOfBodyRegex = /<\s*\/\s*body\s*>/
 
-export const esRequire = (path) => {
-  import required from path
-  return required.__esModule ? required.default : required
+interface OptionalConfig {
+  babelPresets?: any[]
+  babelPlugins?: any[]
+  codeExtensions?: string[]
+  staticUseLinkSuffix?: boolean
 }
 
-export const tree = (directory, files = [], root = directory.length) => {
+export interface Config {
+  babelPresets: any[]
+  babelPlugins: any[]
+  codeExtensions: string[]
+  staticUseLinkSuffix: boolean
+}
+
+export const tree = (directory: string, files: string[] = [], root: number = directory.length): string[] => {
   for (let item of fs.readdirSync(directory)) {
     const path = `${directory}/${item}`
 
@@ -23,14 +32,14 @@ export const tree = (directory, files = [], root = directory.length) => {
   return files
 }
 
-export const isCode = (config, path) => {
+export const isCode = (config: Config, path: string) => {
   for (let extension of config.codeExtensions) {
     if (path.endsWith(`.${extension}`)) return true
   }
   return false
 }
 
-export const injectScript = (markup, script) => {
+export const injectScript = (markup: string, script: string) => {
   if (endOfBodyRegex.test(markup)) {
     return markup.replace(endOfBodyRegex, `<script>${script}</script></body>`)
   } else {
@@ -38,15 +47,16 @@ export const injectScript = (markup, script) => {
   }
 }
 
-export const log = (message, noReplace, color = 'blue') => {
+export const log = (message: string, noReplace?: boolean, color: string = 'blue') => {
   rl.cursorTo(process.stdout, 0)
-  rl.clearLine(process.stdout)
+  rl.clearLine(process.stdout, 1)
 
+  // @ts-ignore: String can't index chalk
   process.stdout.write(chalk[color](`> ${message}`))
   if (noReplace) process.stdout.write('\n')
 }
 
-export const getConfig = (src) => {
+export const getConfig = (src: string): Config => {
   const defaultBabelPresets = [
     [
       '@babel/preset-env',
@@ -57,7 +67,7 @@ export const getConfig = (src) => {
   const defaultBabelPlugins = [ 'babel-plugin-react-require', 'styled-jsx/babel' ]
   const defaultCodeExtensions = [ 'js', 'jsx' ]
 
-  let config = {}
+  let config: OptionalConfig = {}
   if (fs.existsSync(`${src}/frozone.config.js`)) {
     config = require(`${process.cwd()}/${src}/frozone.config.js`)
   }
