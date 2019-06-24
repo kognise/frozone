@@ -1,6 +1,6 @@
 {
   "name": "frozone",
-  "version": "0.1.2",
+  "version": "0.1.2-wonky1",
   "description": "A React framework that generates entirely static HTML with no JavaScript",
   "license": "MIT",
   "repository": "kognise/frozone",
@@ -14,6 +14,12 @@
   "bin": {
     "frozone": "./dist/index.js"
   },
+  "files": [
+    "index.js",
+    "head.js",
+    "link.js",
+    "dist/"
+  ],
   "dependencies": {
     "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
