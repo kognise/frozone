@@ -6,7 +6,7 @@
   "repository": "kognise/frozone",
   "bugs": "https://github.com/kognise/frozone/issues",
   "main": "index.js",
-  "types": "dist/public/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
