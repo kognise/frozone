@@ -1,6 +1,6 @@
-const React = require('react')
-const Context = require('../Context')
-const { log } = require('../util')
+import React from 'react'
+import Context from '../Context'
+import { log } from '../util'
 
 module.exports = ({ href, children }) => {
   const { useLinkSuffix } = React.useContext(Context)

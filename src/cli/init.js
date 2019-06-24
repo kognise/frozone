@@ -1,9 +1,9 @@
-const arg = require('arg')
-const chalk = require('chalk')
-const fs = require('fs-extra')
-const spawn = require('cross-spawn')
-const pjson = require(`${__dirname}/../../package.json`)
-const { log } = require('../util')
+import arg from 'arg'
+import chalk from 'chalk'
+import fs from 'fs-extra'
+import spawn from 'cross-spawn'
+import pjson from `${__dirname}/../../package.json`
+import { log } from '../util'
 
 const args = arg({
   '--help': Boolean,

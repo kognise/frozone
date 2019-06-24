@@ -1,5 +1,5 @@
-const React = require('react')
-const Context = require('../Context')
+import React from 'react'
+import Context from '../Context'
 
 module.exports = ({ children }) => {
   React.useContext(Context).head = React.Children.toArray(children)

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const arg = require('arg')
-const chalk = require('chalk')
-const pjson = require('../package.json')
+import arg from 'arg'
+import chalk from 'chalk'
+import pjson from '../package.json'
 
 const args = arg({
   '--help': Boolean,
@@ -16,26 +16,26 @@ switch (args._[0]) {
   case 'new':
   case 'create':
   case 'init': {
-    require('./cli/init')
+    import './cli/init'
     break
   }
 
   case 'server':
   case 'start': {
-    require('./cli/prod')
+    import './cli/prod'
     break
   }
 
   case 'static':
   case 'build':
   case 'export': {
-    require('./cli/static')
+    import './cli/static'
     break
   }
 
   case 'develop':
   case 'dev': {
-    require('./cli/dev')
+    import './cli/dev'
     break
   }
 
@@ -57,7 +57,7 @@ switch (args._[0]) {
     } else if (args['--version']) {
       console.log(`Frozone version ${pjson.version}`)
     } else {
-      require('./cli/dev')
+      import './cli/dev'
     }
   }
 }

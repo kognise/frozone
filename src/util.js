@@ -5,7 +5,7 @@ import rl from 'readline'
 const endOfBodyRegex = /<\s*\/\s*body\s*>/
 
 export const esRequire = (path) => {
-  const required = require(path)
+  import required from path
   return required.__esModule ? required.default : required
 }
 
@@ -14,7 +14,7 @@ export const tree = (directory, files = [], root = directory.length) => {
     const path = `${directory}/${item}`
 
     if (fs.statSync(`${directory}/${item}`).isDirectory()) {
-      export const tree(`${directory}/${item}`, files, root)
+      tree(`${directory}/${item}`, files, root)
     } else {
       files.push(path.slice(root + 1))
     }
