@@ -1,19 +1,20 @@
-const chalk = require('chalk')
-const fs = require('fs-extra')
-const rl = require('readline')
+import chalk from 'chalk'
+import fs from 'fs-extra'
+import rl from 'readline'
+
 const endOfBodyRegex = /<\s*\/\s*body\s*>/
 
-module.exports.esRequire = (path) => {
+export const esRequire = (path) => {
   const required = require(path)
   return required.__esModule ? required.default : required
 }
 
-module.exports.tree = (directory, files = [], root = directory.length) => {
+export const tree = (directory, files = [], root = directory.length) => {
   for (let item of fs.readdirSync(directory)) {
     const path = `${directory}/${item}`
 
     if (fs.statSync(`${directory}/${item}`).isDirectory()) {
-      module.exports.tree(`${directory}/${item}`, files, root)
+      export const tree(`${directory}/${item}`, files, root)
     } else {
       files.push(path.slice(root + 1))
     }
@@ -22,14 +23,14 @@ module.exports.tree = (directory, files = [], root = directory.length) => {
   return files
 }
 
-module.exports.isCode = (config, path) => {
+export const isCode = (config, path) => {
   for (let extension of config.codeExtensions) {
     if (path.endsWith(`.${extension}`)) return true
   }
   return false
 }
 
-module.exports.injectScript = (markup, script) => {
+export const injectScript = (markup, script) => {
   if (endOfBodyRegex.test(markup)) {
     return markup.replace(endOfBodyRegex, `<script>${script}</script></body>`)
   } else {
@@ -37,7 +38,7 @@ module.exports.injectScript = (markup, script) => {
   }
 }
 
-module.exports.log = (message, noReplace, color = 'blue') => {
+export const log = (message, noReplace, color = 'blue') => {
   rl.cursorTo(process.stdout, 0)
   rl.clearLine(process.stdout)
 
@@ -45,7 +46,7 @@ module.exports.log = (message, noReplace, color = 'blue') => {
   if (noReplace) process.stdout.write('\n')
 }
 
-module.exports.getConfig = (src) => {
+export const getConfig = (src) => {
   const defaultBabelPresets = [
     [
       '@babel/preset-env',
