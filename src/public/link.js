@@ -2,7 +2,7 @@ import React from 'react'
 import Context from '../Context'
 import { log } from '../util'
 
-module.exports = ({ href, children }) => {
+export default ({ href, children }) => {
   const { useLinkSuffix } = React.useContext(Context)
 
   const child = React.Children.toArray(children)[0]
