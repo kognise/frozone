@@ -11,7 +11,7 @@
     "dev": "tsc -w",
     "build": "tsc",
     "toc": "doctoc README.md deploying/",
-    "publish-docs": "git subtree push --prefix out origin gh-pages"
+    "publish-docs": "git subtree push --prefix docs/out origin gh-pages"
   },
   "bin": {
     "frozone": "./dist/index.js"
