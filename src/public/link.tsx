@@ -6,6 +6,10 @@ interface LinkProps {
   href: string
 }
 
+/**
+ * This component wraps an `<a>` tag and decides whether or not to
+ * append `.html` based on the build mode and config file.
+ */
 const Link: FunctionComponent<LinkProps> = ({ href, children }) => {
   const { useLinkSuffix } = React.useContext(Context)
 

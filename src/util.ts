@@ -18,6 +18,12 @@ export interface Config {
   staticUseLinkSuffix: boolean
 }
 
+/**
+ * Recursively crawls of all of the files in a directory and returns their paths.
+ * 
+ * @param directory - The directory to crawl
+ * @returns A list of paths
+ */
 export const tree = (directory: string, files: string[] = [], root: number = directory.length): string[] => {
   for (let item of fs.readdirSync(directory)) {
     const path = `${directory}/${item}`
@@ -32,6 +38,13 @@ export const tree = (directory: string, files: string[] = [], root: number = dir
   return files
 }
 
+/**
+ * Based on a specified configuration file decides whether the file at the given path contains code.
+ * 
+ * @param config - The configuration file
+ * @param path - The file's path
+ * @returns Whether the file contains code
+ */
 export const isCode = (config: Config, path: string) => {
   for (let extension of config.codeExtensions) {
     if (path.endsWith(`.${extension}`)) return true
@@ -39,6 +52,13 @@ export const isCode = (config: Config, path: string) => {
   return false
 }
 
+/**
+ * Injects a given snippet of JavaScript into HTML markup, either before the `</body>` tag or at the end of the markup.
+ * 
+ * @param markup - The HTML markup
+ * @param script - JavaScript code to inject
+ * @returns New markup with the code injected
+ */
 export const injectScript = (markup: string, script: string) => {
   if (endOfBodyRegex.test(markup)) {
     return markup.replace(endOfBodyRegex, `<script>${script}</script></body>`)
@@ -47,6 +67,13 @@ export const injectScript = (markup: string, script: string) => {
   }
 }
 
+/**
+ * Logs a message to the console and possibly replace the last message.
+ * 
+ * @param message - The message to print
+ * @param noReplace - If specified, this message shouldn't be replaced
+ * @param color - If specified, the color to print the message in
+ */
 export const log = (message: string, noReplace?: boolean, color: string = 'blue') => {
   rl.cursorTo(process.stdout, 0)
   rl.clearLine(process.stdout, 1)
@@ -56,6 +83,11 @@ export const log = (message: string, noReplace?: boolean, color: string = 'blue'
   if (noReplace) process.stdout.write('\n')
 }
 
+/**
+ * Get the configuration file and fill in blank values.
+ * 
+ * @param src - The path to the source code directory
+ */
 export const getConfig = (src: string): Config => {
   const defaultBabelPresets = [
     [
