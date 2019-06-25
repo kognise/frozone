@@ -8,7 +8,7 @@ export default () => (
     <Logo />
     <Title>Frozone</Title>
     <Text>A React framework that generates entirely static HTML with no JavaScript.</Text>
-    <LinkButton href='/docs'>Get started</LinkButton>
+    <LinkButton href='docs'>Get started</LinkButton>
 
     <style jsx global>{`
       body {
