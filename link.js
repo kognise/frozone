@@ -1,1 +1,1 @@
-module.exports = require('./src/public/link')
+module.exports = require('./dist/public/link')

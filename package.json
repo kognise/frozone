@@ -1,17 +1,29 @@
 {
   "name": "frozone",
-  "version": "0.1.1",
+  "version": "0.1.2-wonky5",
   "description": "A React framework that generates entirely static HTML with no JavaScript",
   "license": "MIT",
   "repository": "kognise/frozone",
   "bugs": "https://github.com/kognise/frozone/issues",
-  "main": "src/index.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
     "toc": "doctoc README.md deploying/"
   },
   "bin": {
-    "frozone": "./src/index.js"
+    "frozone": "./dist/index.js"
   },
+  "files": [
+    "index.js",
+    "head.js",
+    "link.js",
+    "index.d.ts",
+    "head.d.ts",
+    "link.d.ts",
+    "dist/"
+  ],
   "dependencies": {
     "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
@@ -28,6 +40,14 @@
     "ws": "^6.1.4"
   },
   "devDependencies": {
-    "doctoc": "^1.4.0"
+    "@types/cross-spawn": "^6.0.0",
+    "@types/fs-extra": "^7.0.0",
+    "@types/node": "^12.0.10",
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
+    "@types/styled-jsx": "^2.2.8",
+    "@types/ws": "^6.0.1",
+    "doctoc": "^1.4.0",
+    "typescript": "^3.5.2"
   }
 }

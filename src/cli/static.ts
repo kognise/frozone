@@ -1,10 +1,10 @@
-const arg = require('arg')
-const chalk = require('chalk')
-const { getConfig, log } = require('../util')
-const {
+import arg from 'arg'
+import chalk from 'chalk'
+import { getConfig, log } from '../util'
+import {
   transformJavaScript, buildPages, copyStaticFiles,
   copyStaticBuild
-} = require('../steps')
+} from '../steps'
 
 const args = arg({
   '--help': Boolean,

@@ -1,16 +1,19 @@
-const React = require('react')
-const ReactDOMServer = require('react-dom/server')
-const WebSocket = require('ws')
-const flush = require('styled-jsx/server').default
-const fs = require('fs-extra')
-const http = require('http')
-const babel = require('@babel/core')
-const chokidar = require('chokidar')
-const path = require('path')
-const Context = require('./Context')
-const { esRequire, isCode, injectScript, tree } = require('./util')
+import React, { FunctionComponent } from 'react'
+import ReactDOMServer from 'react-dom/server'
+import WebSocket from 'ws'
 
-module.exports.transformJavaScript = (config, src, dist) => {
+import flush from 'styled-jsx/server'
+import fs from 'fs-extra'
+import http from 'http'
+// @ts-ignore: No Babel typings
+import { transformFileSync } from '@babel/core'
+import chokidar from 'chokidar'
+import path from 'path'
+
+import Context, { ContextValue } from './Context'
+import { Config, isCode, injectScript, tree } from './util'
+
+export const transformJavaScript = (config: Config, src: string, dist: string) => {
   fs.emptyDirSync('.frozone')
   for (let file of tree(src)) {
     if (!path.relative('node_modules/', file).startsWith('..')) continue
@@ -19,7 +22,7 @@ module.exports.transformJavaScript = (config, src, dist) => {
       const content = fs.readFileSync(`${src}/${file}`)
       fs.outputFileSync(`${dist}/transformed/${file}`, content)
     } else {
-      const { code } = babel.transformFileSync(`${src}/${file}`, {
+      const { code } = transformFileSync(`${src}/${file}`, {
         presets: config.babelPresets,
         plugins: config.babelPlugins
       })
@@ -29,9 +32,9 @@ module.exports.transformJavaScript = (config, src, dist) => {
   }
 }
 
-module.exports.buildPages = async (config, dist, isStatic) => {
+export const buildPages = async (config: Config, dist: string, isStatic: boolean) => {
   if (!fs.existsSync(`${dist}/transformed/pages/_document.js`)) {
-    const { code } = babel.transformFileSync(require.resolve('./default/_document.js'), {
+    const { code } = transformFileSync(`${__dirname}/default/_document.js`, {
       presets: config.babelPresets,
       plugins: config.babelPlugins
     })
@@ -40,52 +43,51 @@ module.exports.buildPages = async (config, dist, isStatic) => {
 
   const requirePath = `${process.cwd()}/${dist}/transformed/pages/_document`
   delete require.cache[require.resolve(requirePath)]
-  const Document = esRequire(requirePath)
+  const DocumentImported = await import(requirePath)
+  const Document = DocumentImported.__esModule ? DocumentImported.default : DocumentImported
 
   for (let file of tree(`${dist}/transformed/pages/`)) {
     if (file === '_document.js' || !isCode(config, file)) continue
-    const PageInner = esRequire(`${process.cwd()}/${dist}/transformed/pages/${file}`)
+    const PageInnerImported = await import(`${process.cwd()}/${dist}/transformed/pages/${file}`)
+    const PageInner = PageInnerImported.__esModule ? PageInnerImported.default : PageInnerImported
 
     let pageProps = {}
     if (PageInner.getInitialProps) {
       pageProps = await PageInner.getInitialProps()
     }
 
-    const contextValue = {
+    const contextValue: ContextValue = {
       head: [],
       useLinkSuffix: isStatic ? config.staticUseLinkSuffix : false
     }
-    const page = ReactDOMServer.renderToStaticMarkup(React.createElement(
-      Context.Provider, { value: contextValue },
-      React.createElement(PageInner, pageProps)
-    ))
+    const page = ReactDOMServer.renderToStaticMarkup(
+      <Context.Provider value={contextValue}>
+        <PageInner {...pageProps} />
+      </Context.Provider>
+    )
     const styles = flush()
 
-    const Main = () =>  React.createElement('div', {
-      id: 'root',
-      dangerouslySetInnerHTML: {
-        __html: page
-      }
-    })
-    const Head = (props) => React.createElement(
-      React.Fragment, null,
-      React.createElement('meta', {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1.0'
-      }),
-      React.createElement('meta', { charSet: 'UTF-8' }),
-      styles, props.children, contextValue.head
+    const Main: FunctionComponent = () => (
+      <div id='root' dangerouslySetInnerHTML={{ __html: page }} />
+    )
+    const Head: FunctionComponent = ({ children }) => (
+      <>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta charSet='UTF-8' />
+        {styles} {children} {contextValue.head}
+      </>
     )
 
-    const static = ReactDOMServer.renderToStaticMarkup(React.createElement(
-      Context.Provider, { value: contextValue },
-      React.createElement(Document, { Main, Head })
-    ))
-    fs.outputFileSync(`${dist}/final/${file.replace(/\..+$/, '.html')}`, static)
+    const markup = ReactDOMServer.renderToStaticMarkup(
+      <Context.Provider value={contextValue}>
+        <Document Main={Main} Head={Head} />
+      </Context.Provider>
+    )
+    fs.outputFileSync(`${dist}/final/${file.replace(/\..+$/, '.html')}`, markup)
   }
 }
 
-module.exports.copyStaticFiles = (config, src, dist) => {
+export const copyStaticFiles = (config: Config, src: string, dist: string) => {
   if (fs.existsSync(`${src}/static/`)) {
     for (let file of tree(`${src}/static/`)) {
       const content = fs.readFileSync(`${src}/static/${file}`)
@@ -101,14 +103,14 @@ module.exports.copyStaticFiles = (config, src, dist) => {
   }
 }
 
-module.exports.copyStaticBuild = (config, dist, out) => {
+export const copyStaticBuild = (config: Config, dist: string, out: string) => {
   for (let file of tree(`${dist}/final/`)) {
     const content = fs.readFileSync(`${dist}/final/${file}`)
     fs.outputFileSync(`${out}/${file}`, content)
   }
 }
 
-module.exports.startLiveReload = (config, lrPort, src, dist, build) => {
+export const startLiveReload = (config: Config, lrPort: number, src: string, dist: string, build: () => boolean | Promise<boolean>) => {
   const wss = new WebSocket.Server({ port: lrPort })
 
   const buildAndReload = async () => {
@@ -118,7 +120,7 @@ module.exports.startLiveReload = (config, lrPort, src, dist, build) => {
       client.send('reload')
     }
   }
-  const ignored = (child) => !path.relative(dist, child).startsWith('..')
+  const ignored = (child: string) => !path.relative(dist, child).startsWith('..')
 
   chokidar.watch(`${process.cwd()}/${src}`, { ignoreInitial: true, ignored })
     .on('add', buildAndReload)
@@ -131,7 +133,7 @@ module.exports.startLiveReload = (config, lrPort, src, dist, build) => {
   `
 }
 
-module.exports.startServer = (config, port, dist, script) => {
+export const startServer = (config: Config, port: number, dist: string, script?: string) => {
   http.createServer((req, res) => {
     const possibilities = [
       `${dist}/final/${req.url}`,

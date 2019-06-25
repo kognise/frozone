@@ -1,1 +1,1 @@
-module.exports = require('./src/public/head')
+module.exports = require('./dist/public/head')
