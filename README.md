@@ -171,7 +171,7 @@ import Link from 'frozone/link'
 
 export default () => (
   <p>
-    You're home! <Link href='/about'>
+    You&apos;re home! <Link href='/about'>
       <a>Learn about us</a>
     </Link>
   </p>
