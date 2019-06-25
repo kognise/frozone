@@ -49,8 +49,6 @@ typings/
 
 # Frozone build output
 .frozone/
-out/
 
 # Secret sauce
-demo/
 dist/
