@@ -1,10 +1,18 @@
 import fetch from 'node-fetch'
 import Markdown from '../components/Markdown'
+import Title from '../components/Title'
+import LinkButton from '../components/LinkButton'
 
 const Page = ({ readme }) => (
   <>
     <div className='container'>
-      <Markdown source={readme.replace(/deploying\/(.+)\.md/g, 'https://github.com/kognise/frozone/blob/master/deploying/$1.md')} escapeHtml={false} />
+      <Title>Frozone Docs</Title>
+      <LinkButton href='..'>Go home &raquo;</LinkButton>
+      <Markdown source={
+        readme
+          .replace(/deploying\/(.+)\.md/g, 'https://github.com/kognise/frozone/blob/master/deploying/$1.md')
+          .replace(/^.+(?=(<!-- START doctoc))/s, '')
+        } escapeHtml={false} />
     </div>
 
     <style jsx>{`
