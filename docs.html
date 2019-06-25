@@ -1,0 +1,382 @@
+<html><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta charSet="UTF-8"/><style id="__jsx-1596324834">.markdown.jsx-1596324834 a{color:#1EB295;-webkit-text-decoration:none;text-decoration:none;display:inline-block;}.markdown.jsx-1596324834 a:hover{-webkit-text-decoration:underline;text-decoration:underline;}.markdown.jsx-1596324834 a,.markdown.jsx-1596324834 summary{outline:none;}.markdown.jsx-1596324834 a:focus,.markdown.jsx-1596324834 summary:focus{box-shadow:0 0 0 4px #23FFD369;}.markdown.jsx-1596324834 blockquote{border-left:4px solid #42B295;background:#42B29533;margin:0;padding:10px 0 10px 20px;}.markdown.jsx-1596324834 blockquote p{margin:0;}</style><style id="__jsx-1959780321">code[class*="language-"],pre[class*="language-"]{color:#393A34;font-family:'Roboto Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;font-size:0.95em;line-height:1.2em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto;border:1px solid #dddddd;background-color:white;}:not(pre)>code{padding:.2em;padding-top:1px;padding-bottom:1px;background:#f8f8f8;border:1px solid #dddddd;}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:#999988;font-style:italic;}.token.namespace{opacity:.7;}.token.string,.token.attr-value{color:#e3116c;}.token.punctuation,.token.operator{color:#393A34;}.token.entity,.token.url,.token.symbol,.token.number,.token.boolean,.token.variable,.token.constant,.token.property,.token.regex,.token.inserted{color:#36acaa;}.token.atrule,.token.keyword,.token.attr-name,.language-autohotkey .token.selector{color:#00a4db;}.token.function,.token.deleted,.language-autohotkey .token.tag{color:#9a050f;}.token.tag,.token.selector,.language-autohotkey .token.keyword{color:#00009f;}.token.important,.token.function,.token.bold{font-weight:bold;}.token.italic{font-style:italic;}</style><style id="__jsx-1611415433">.container.jsx-3936636224{max-width:680px;margin:0 auto;}</style><style id="__jsx-2291843296">body{font-family:'Saira',sans-serif;margin:0;padding:14px;}</style> <link href="https://fonts.googleapis.com/css?family=Saira:400,700|Roboto+Mono:400,700,400i&amp;display=swap" rel="stylesheet"/> <body><div id="root"><div class="jsx-3936636224 container"><div class="jsx-1596324834 markdown"><h1 id="frozone">Frozone</h1>
+<p><strong>Frozone is a React framework that generates entirely static HTML with no JavaScript.</strong></p>
+<p><a href="https://www.npmjs.com/package/frozone" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/frozone.svg?style=for-the-badge" alt="NPM version"></a>
+<a href="https://github.com/kognise/frozone/blob/master/LICENSE.md" target="_blank" rel="noopener"><img src="https://img.shields.io/github/license/kognise/frozone.svg?style=for-the-badge" alt="GitHub"></a></p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<ul>
+<li><a href="#how-to-use">How to use</a>
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#css">CSS</a>
+<ul>
+<li><a href="#styled-jsx">Styled-jsx</a></li>
+<li><a href="#css-in-js">CSS-in-JS</a></li>
+</ul>
+</li>
+<li><a href="#static-file-serving-eg-images">Static file serving (e.g. images)</a></li>
+<li><a href="#populating-head">Populating <code>&lt;head&gt;</code></a></li>
+<li><a href="#fetching-data">Fetching data</a></li>
+<li><a href="#routing">Routing</a>
+<ul>
+<li><a href="#simple-linking">Simple linking</a></li>
+</ul>
+</li>
+<li><a href="#custom-document">Custom <code>&lt;Document&gt;</code></a></li>
+<li><a href="#custom-configuration">Custom configuration</a>
+<ul>
+<li><a href="#configurating-code-extensions">Configurating code extensions</a></li>
+<li><a href="#static-build-link-extensions">Static build <code>&lt;Link&gt;</code> extensions</a></li>
+<li><a href="#plugin-support">Plugin support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#production-deployment">Production deployment</a>
+<ul>
+<li><a href="#frozones-server">Frozone's server</a></li>
+<li><a href="#static-html">Static HTML</a></li>
+<li><a href="#deploying">Deploying</a></li>
+</ul>
+</li>
+<li><a href="#migrating-to-nextjs">Migrating to Next.js</a>
+<ul>
+<li><a href="#imports">Imports</a></li>
+<li><a href="#things-that-stay-the-same">Things that stay the same</a></li>
+<li><a href="#custom-document-1">Custom <code>&lt;Document&gt;</code></a></li>
+<li><a href="#custom-configuration-1">Custom configuration</a></li>
+<li><a href="#support">Support</a></li>
+</ul>
+</li>
+<li><a href="#frozone-cli">Frozone CLI</a>
+<ul>
+<li><a href="#initializing-a-project">Initializing a project</a></li>
+<li><a href="#developing">Developing</a></li>
+<li><a href="#production-server">Production server</a></li>
+<li><a href="#static-export">Static export</a></li>
+</ul>
+</li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="how-to-use">How to use</h2>
+<h3 id="setup">Setup</h3>
+<p>Install it:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> frozone -g
+</code></pre>
+<p>and initialize a new project:</p>
+<pre class="language-bash"><code class="language-bash">frozone init hello-world
+</code></pre>
+<p>Every <code>.js</code> file inside the <code>pages/</code> directory becomes a route and is automatically rendered and converted to static HTML.</p>
+<p>Just run <code>npm run dev</code> and go to <code>http://localhost:3000</code> to see your running site. To use another port, you can run <code>npm run dev -- -p &lt;port&gt;</code>.</p>
+<blockquote>
+<p>We recommend putting the <code>out/</code> and <code>.frozone/</code> folders in a <code>.gitignore</code> or <code>.npmignore</code>. That way your static exports and build files won't be tracked in version control which probably isn't desired.</p>
+</blockquote>
+<h3 id="css">CSS</h3>
+<h4 id="styled-jsx">Styled-jsx</h4>
+<p>We bundle Zeit's amazing library <a href="https://github.com/zeit/styled-jsx" target="_blank" rel="noopener">styled-jsx</a> to provide support for scoped CSS. You can see this in action in this simple page:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello<span class="token punctuation">,</span> world<span class="token operator">!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">jsx</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css"><span class="token punctuation">{</span><span class="token selector">`
+      h1</span> <span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> red <span class="token punctuation">}</span>
+    `<span class="token punctuation">}</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Check out <a href="https://github.com/zeit/styled-jsx" target="_blank" rel="noopener">styled-jsx's documentation</a> for more information and examples.</p>
+<h4 id="css-in-js">CSS-in-JS</h4>
+<p>It's possible to use any existing CSS-in-JS solution. The simplest one is React's built-in inline styles:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> color<span class="token punctuation">:</span> <span class="token string">'red'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span></span><span class="token punctuation">></span></span>This is red<span class="token operator">!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>To use more sophisticated CSS-in-JS solutions, you typically have to implement style flushing to get styles to show up in the static HTML. This is possible by defining your own <a href="#custom-document">custom <code>&lt;Document&gt;</code></a> component that wraps each page, similar to Next.js.</p>
+<h3 id="static-file-serving-eg-images">Static file serving (e.g. images)</h3>
+<p>Put static files in a folder called <code>static</code> in your project root directory. From your code you can then reference those files with <code>/static/</code> URLs:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>/static/image.png<span class="token punctuation">'</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>A random image<span class="token punctuation">'</span></span> <span class="token punctuation">/></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>You can serve static files from the root directory by putting them in a folder called <code>public</code>. For example, the file <code>public/robots.txt</code> could be access at <code>/robots.txt</code>.</p>
+<blockquote>
+<p>Note that static files will override regular files. For example, if <code>public/foo.html</code> and <code>pages/foo.js</code> both exist, <code>index.html</code> will contain the contents from <code>public/foo.html</code>.</p>
+</blockquote>
+<h3 id="populating-head">Populating <code>&lt;head&gt;</code></h3>
+<p>Frozone includes a component for appending elements to the <code>&lt;head&gt;</code> element, similar to React Helmet.</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">import</span> Head <span class="token keyword">from</span> <span class="token string">'frozone/head'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>My page title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello<span class="token punctuation">,</span> world<span class="token operator">!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="fetching-data">Fetching data</h3>
+<p>You may want to load in external data to be passed as props to a page. For example, fetching data from an external API. This will only be fetched once, at build.</p>
+<p>You can do this in the <code>getInitialProps</code> function:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">import</span> fetch <span class="token keyword">from</span> <span class="token string">'node-fetch'</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">Page</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> stars <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>Frozone has <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span><span class="token punctuation">{</span>stars<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span> stars on GitHub<span class="token operator">!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">}</span>
+
+Page<span class="token punctuation">.</span><span class="token function-variable function">getInitialProps</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/repos/kognise/frozone'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> json <span class="token operator">=</span> <span class="token keyword">await</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span> stars<span class="token punctuation">:</span> json<span class="token punctuation">.</span>stargazers_count <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Page
+</code></pre>
+<h3 id="routing">Routing</h3>
+<p>Frozone's server will resolve routes in the following order:</p>
+<ul>
+<li><code>pages/&lt;route&gt;.js</code></li>
+<li><code>pages/&lt;route&gt;/index.js</code></li>
+</ul>
+<p>When exporting to static HTML Frozone will write to filenames matching the original JavaScript files (so <code>pages/foo.js</code> maps to <code>pages/foo.html</code> and <code>pages/bar/index.js</code> maps to <code>pages/bar/index.html</code>), and relies on your static server's resolving functionality.</p>
+<h4 id="simple-linking">Simple linking</h4>
+<p>To link between pages we provide a <code>&lt;Link&gt;</code> component. This will decide whether or not to append the <code>.html</code> extension based on whether or not your site is being served by Frozone or a static server. You can override this in a <a href="#static-build-link-extensions">custom configuration file</a>.</p>
+<p>Here's a basic example:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">import</span> Link <span class="token keyword">from</span> <span class="token string">'frozone/link'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+    You<span class="token string">'re home! &lt;Link href='</span><span class="token operator">/</span>about'<span class="token operator">></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span>Learn about us<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>You should put an <code>&lt;a&gt;</code> tag inside the <code>&lt;Link&gt;</code> component instead of a direct text child.</p>
+</blockquote>
+<h3 id="custom-document">Custom <code>&lt;Document&gt;</code></h3>
+<p>You may have noticed that you do not have to specify the HTML document markup (such as <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements). You may want to override this - this is also useful for adding support for CSS-in-JS libraries such as <a href="https://www.styled-components.com/" target="_blank" rel="noopener">styled-components</a></p>
+<blockquote>
+<p>Note that <a href="https://github.com/zeit/styled-jsx" target="_blank" rel="noopener">styled-jsx</a> support is provided out of the box, and there is no need to make a custom <code>&lt;Document&gt;</code> to use it.</p>
+</blockquote>
+<p>Here's the default <code>&lt;Document&gt;</code> component:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> Main<span class="token punctuation">,</span> Head <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Main</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Both <code>&lt;Head /&gt;</code> and <code>&lt;Main /&gt;</code> are required for pages to be properly rendered and exported.</p>
+<p>You can add custom tags in <code>&lt;Head&gt;</code> that will be appended to the document's <code>&lt;head&gt;</code>:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> Main<span class="token punctuation">,</span> Head <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css"><span class="token punctuation">{</span><span class="token selector">`body</span> <span class="token punctuation">{</span> <span class="token property">margin</span><span class="token punctuation">:</span> 0 <span class="token punctuation">}</span>`<span class="token punctuation">}</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Main</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>Reasonable default head tags such as <code>&lt;meta charSet='UTF-8' /&gt;</code> and <code>&lt;meta name='viewport' content='width=device-width, initial-scale=1.0' /&gt;</code> are provided by default.</p>
+</blockquote>
+<h3 id="custom-configuration">Custom configuration</h3>
+<p>For custom advanced behavior of Next.js, you can create a <code>frozone.config.js</code> in the root of your project directory. You must restart Frozone after making changes to the config file.</p>
+<blockquote>
+<p>Note that <code>frozone.config.js</code> is a JavaScript module that should export an object, and isn't a JSON file.</p>
+</blockquote>
+<p>Configuration example:</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  babelPlugins<span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'babel-plugin-holes'</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here's a fully fledged out configuration file, all fields are optional:</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  babelPresets<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Additional Babel presets</span>
+  babelPlugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Additional Babel plugins</span>
+  codeExtensions<span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'js'</span><span class="token punctuation">,</span> <span class="token string">'jsx'</span> <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Extensions that Frozone considers as code files</span>
+  staticUseLinkSuffix<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token comment">// Whether linked pages in static exports end with .html</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>Fields such as <code>babelPresets</code> and <code>babelPlugins</code> will be added on to the default set. Fields like <code>codeExtensions</code> and <code>useLinkSuffix</code> will replace the default value.</p>
+</blockquote>
+<p>I'll be adding more options in the future. Create an issue if you want something specific.</p>
+<h4 id="configurating-code-extensions">Configurating code extensions</h4>
+<p>If you want to use things like TypeScript you may want to modify this field. Frozone will treat files with these extensions as code and build them with Babel. Files with these extensions in the <code>pages/</code> directory will be built as pages.</p>
+<p>Here are values you might want for TypeScript:</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  codeExtensions<span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'ts'</span><span class="token punctuation">,</span> <span class="token string">'tsx'</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="static-build-link-extensions">Static build <code>&lt;Link&gt;</code> extensions</h4>
+<p>By default, links to pages will end with <code>.html</code> in static exports. Sometimes you might want to remove that, for example if you set your server up to serve <code>/foo.html</code> when <code>/foo</code> is requested.</p>
+<p>You can just set this configuration value:</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  staticUseLinkSuffix<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="plugin-support">Plugin support</h4>
+<p>I'll add plugin support soon if the community wants it - feel free to create an issue.</p>
+<h2 id="production-deployment">Production deployment</h2>
+<p>To deploy there are two options, Frozone's production server and static HTML.</p>
+<h3 id="frozones-server">Frozone's server</h3>
+<p>Frozone comes with a simple production server. It resolves pages in the same way as the dev server minus live reloading. <a href="#todo">Learn more about the CLI.</a></p>
+<pre class="language-bash"><code class="language-bash">frozone start
+</code></pre>
+<h3 id="static-html">Static HTML</h3>
+<p>You can additionally export to static HTML files, this is useful if you want to move them somewhere else or use your own server.</p>
+<pre class="language-bash"><code class="language-bash">frozone static
+</code></pre>
+<h3 id="deploying">Deploying</h3>
+<p>You can deploy Frozone anywhere from <a href="https://netlify.com/" target="_blank" rel="noopener">Netlify</a> to <a href="https://now.sh/" target="_blank" rel="noopener">Now</a>. Here's a list of guides:</p>
+<ul>
+<li><a href="https://github.com/kognise/frozone/blob/master/deploying/NETLIFY.md" target="_blank" rel="noopener">Netlify</a></li>
+<li><a href="https://github.com/kognise/frozone/blob/master/deploying/NOW.md" target="_blank" rel="noopener">Now</a></li>
+<li><a href="https://github.com/kognise/frozone/blob/master/deploying/GITHUB.md" target="_blank" rel="noopener">GitHub Pages</a></li>
+</ul>
+<h2 id="migrating-to-nextjs">Migrating to Next.js</h2>
+<p>Frozone was heavily inspired by Zeit's <a href="https://nextjs.org/" target="_blank" rel="noopener">Next.js</a> and was designed to be easy to migrate away from when you need more than just static HTML. You will lose the absurdly tiny file sizes but of course will be able to add amazing things like interaction.</p>
+<h3 id="imports">Imports</h3>
+<p>You can just replace <code>frozone</code> with <code>next</code> in the following imports:</p>
+<ul>
+<li><code>frozone/head</code></li>
+<li><code>frozone/link</code></li>
+</ul>
+<h3 id="things-that-stay-the-same">Things that stay the same</h3>
+<p>In general, your directory structure and more can remain the same. In particular:</p>
+<ul>
+<li>Static files can stay in <code>static/</code> and <code>public/</code></li>
+<li>Your pages can be structured the same way in the same folder</li>
+<li><code>getInitialProps()</code> works exactly the same</li>
+<li><code>&lt;Link&gt;</code> and <code>&lt;Head&gt;</code> components</li>
+</ul>
+<h3 id="custom-document-1">Custom <code>&lt;Document&gt;</code></h3>
+<p>Next.js has a different syntax for your custom document file.</p>
+<p>Something like this in Frozone:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> Main<span class="token punctuation">,</span> Head <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css"><span class="token punctuation">{</span><span class="token selector">`body</span> <span class="token punctuation">{</span> <span class="token property">margin</span><span class="token punctuation">:</span> 0 <span class="token punctuation">}</span>`<span class="token punctuation">}</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Main</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>would become this in Next.js:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">import</span> Document<span class="token punctuation">,</span> <span class="token punctuation">{</span> Html<span class="token punctuation">,</span> Head<span class="token punctuation">,</span> Main<span class="token punctuation">,</span> NextScript <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'next/document'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> Document <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Html</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css"><span class="token punctuation">{</span><span class="token selector">`body</span> <span class="token punctuation">{</span> <span class="token property">margin</span><span class="token punctuation">:</span> 0 <span class="token punctuation">}</span>`<span class="token punctuation">}</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Head</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Main</span></span> <span class="token punctuation">/></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">NextScript</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Html</span></span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>I recommend that you read more about Next.js's custom <code>&lt;Document&gt;</code> syntax <a href="https://nextjs.org/docs#custom-document" target="_blank" rel="noopener">on their website here</a>.</p>
+</blockquote>
+<h3 id="custom-configuration-1">Custom configuration</h3>
+<p>As you may expect, Frozone's custom configuration has a completely different format from Next.js's. You should probably read <a href="https://nextjs.org/docs#custom-configuration" target="_blank" rel="noopener">their documentation on it</a> and redo everything.</p>
+<h3 id="support">Support</h3>
+<p>If you encounter any difficulties while migrating, just create an issue - I'd love to help.</p>
+<h2 id="frozone-cli">Frozone CLI</h2>
+<p>Frozone has a rich command line interface that you can use to create and run projects. For more information run <code>frozone --help</code>.</p>
+<p>You can install it with the following command:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> frozone -g
+</code></pre>
+<h3 id="initializing-a-project">Initializing a project</h3>
+<p>Initialize a new project with the following command:</p>
+<pre><code>frozone init &lt;name&gt;
+</code></pre>
+<p>This will generate the following simple file structure:</p>
+<ul>
+<li><code>package.json</code></li>
+<li><code>.gitignore</code></li>
+<li><code>pages/</code>
+<ul>
+<li><code>index.js</code></li>
+</ul>
+</li>
+</ul>
+<p><code>index.js</code> will be populated with a very simple page demonstrating a heading and some minimal styles.</p>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>--help</code>, <code>-h</code>: displays some help informaton</li>
+<li><code>--include-out</code>: include the static build out directory in Git (useful for GitHub Pages deployments)</li>
+</ul>
+<h3 id="developing">Developing</h3>
+<p>Running <code>frozone</code> or <code>frozone dev</code> (or <code>npm run dev</code> if scripts are set up) will start a development server in the current directory with live reloading.</p>
+<p>Just press <code>Ctrl-C</code> to terminate it. Frozone will attempt to spit out useful error information, if something is unclear please go ahead and create an issue.</p>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>--help</code>, <code>-h</code>: displays some help informaton</li>
+<li><code>--port</code>, <code>-p</code>: sets the port for the server to listen on</li>
+<li><code>--lr-port</code>: sets the port for the live reload socket to listen on</li>
+<li><code>--src</code>: the directory with the site's source code</li>
+<li><code>--dist</code>: a directory that will be created for build files</li>
+</ul>
+<blockquote>
+<p>In most circumstances <code>--dist</code> shouldn't have to be changed, its default value is <code>.frozone/</code>.</p>
+</blockquote>
+<h3 id="production-server">Production server</h3>
+<p>Running <code>frozone start</code> (or <code>npm run start</code> if scripts are set up) will start a production server. It's identical to the development server minus live reloading.</p>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>--help</code>, <code>-h</code>: displays some help informaton</li>
+<li><code>--port</code>, <code>-p</code>: sets the port for the server to listen on</li>
+<li><code>--src</code>: the directory with the site's source code</li>
+<li><code>--dist</code>: a directory that will be created for build files</li>
+</ul>
+<h3 id="static-export">Static export</h3>
+<p>Run <code>frozone static</code> (or <code>npm run export</code> if scripts are set up) to export static HTML. My default it will output to an <code>out/</code> directory.</p>
+<p><strong>Options</strong></p>
+<ul>
+<li><code>--help</code>, <code>-h</code>: displays some help informaton</li>
+<li><code>--out</code>, <code>-o</code>: the output directory</li>
+<li><code>--src</code>: the directory with the site's source code</li>
+<li><code>--dist</code>: a directory that will be created for build files</li>
+</ul>
+<h2 id="faq">FAQ</h2>
+<details>
+  <summary>Why would you want this?</summary>
+<p>React is an amazing way of creating interactive component-based web apps. But it's component system and syntax is extremely useful on its own!</p>
+<p>Frozone lets your create sites in React that compile to static HTML <strong>with no JavaScript bundle</strong>. That means all the benefits and maintainability of React without giant file sizes.</p>
+<p>Not only that - if you want to add interactivity later on, Frozone makes it <a href="#migrating-to-nextjs">super easy</a> to migrate to Next.js.</p>
+</details>
+<details>
+  <summary>Is Frozone production ready?</summary>
+<p>Frozone is a very new project, but since there isn't any JavaScript you aren't going to get any unexpected errors in production. The built-in server is as simple as it gets and should be performant. If you're experiencing problems feel free to file an issue!</p>
+</details>
+<details>
+  <summary>How big are the outputted files?</summary>
+<p>Outputted files contain the bare minimum - minified static HTML. That's about as small as it gets.</p>
+</details>
+<details>
+  <summary>Frozone seems suspiciously like Next.js...</summary>
+<p>I absolutely adore Zeit's <a href="https://nextjs.org/" target="_blank" rel="noopener">Next.js</a> and use it for many projects. Frozone was heavily inspired by it and this readme is basically a ripoff of it's amazing documentation.</p>
+<p>I created Frozone as an alternative to Next.js for totally static sites that don't need JavaScript, and I wanted to make it easy to migrate. In fact, there's <a href="#migrating-to-nextjs">a whole section on migrating to Next.js</a>.</p>
+</details>
+<details>
+  <summary>How can I fetch data?</summary>
+<p>You can fetch data in a <code>getInitialProps</code> function that can retrieve data from anywhere and pass it to a page's props. Feel free to read <a href="#fetching-data">the earlier section on this</a>.</p>
+</details></div></div></div></body></html>
