@@ -1,6 +1,6 @@
 > 🚩 **This project is archived!** 🚩
 > 
-> *This was a great way to learn about bundlers and React, but functionally isn't very useful. Just use Next.js!
+> *This was a great way to learn about bundlers and React, but functionally isn't very useful. Just use Next.js!*
 
 # Frozone
 
