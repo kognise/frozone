@@ -1,3 +1,7 @@
+> 🚩 **This project is archived!** 🚩
+> 
+> *This was a great way to learn about bundlers and React, but functionally isn't very useful. Just use Next.js!
+
 # Frozone
 
 **Frozone is a React framework that generates entirely static HTML with no JavaScript.**
